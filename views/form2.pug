@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  form(method="post", action="/form/2")
+    div
+      - let i = 0;
+      while i < pieceCnt
+        h2 #{pieces[i]}
+        - let j =1;
+        while j <= memberCnt
+          p #{j} 番
+          - let k = 0;
+          while k <= memberCnt
+            //- input(type='radio', id = 'n' + i +'_'+ j, name = 'n' + i +'_'+ j, value= k)
+            input(type='radio', id = 'n' + i +'_'+ j, name = 'n' + i +','+ j, value= k)
+
+            label(for='#{k}') #{k}
+            - k++
+          - j++
+        - i++
+
+    button(type="submit") 次へ
