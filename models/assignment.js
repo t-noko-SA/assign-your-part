@@ -1,14 +1,11 @@
 'use strict';
 
-// function hoge(req){
-
-//   const members = parseInputs(decodeURIComponent(req.cookies.members));
-//   const pieces = parseInputs(decodeURIComponent(req.cookies.pieces));
-  
-//   return form2MapMap;
-// };
-
-
+var config = {
+  KEY_PIECE_NAME:"name",
+  KEY_PLAYER_COUNT:"playerCount",
+  KEY_PLAYER_SUM:"playerSum",
+  KEY_ASSIGN_ORDER:"assignOrder"
+};
 
 function makePieceMap(req){
   
@@ -29,14 +26,22 @@ function makePieceMap(req){
   const pieceIdArray = inputValueArray.filter((value, idx, array) => idx % 3 === 0); // => [n0,n0,n1...] 表のpieceId の要素を昇順に格納
   const partArray = inputValueArray.filter((value, idx, array) => idx % 3 === 1); // => [1,2,1 ...] 表のpart の要素を昇順に格納　(曲ID n0 のパート1, 曲ID n0 のパート2, 曲ID n1 のパート1...)
   const playerCountArray = inputValueArray.filter((value, idx, array) => idx % 3 === 2); // => [1,1,2...] 表のplayerCount の要素を昇順に格納　(曲ID n0 のパート1の人数, 曲ID n0 のパート2の人数, 曲ID n2 のパート1の人数)
-
+  // const pieceMapArray = [];
   pieceNameArray.forEach((pieceName, pieceNameIdx) => {
     const playerCountMap = fetchPlayerCountMap(pieceNameIdx);
-    pieceMap.set(pieceName, playerCountMap); // ["ABC",{}]
-  });  
-  
-  pieceNameArray.forEach(pieceName => {
-    console.log(pieceName, pieceMap.get(pieceName));
+    const pieceInfoMap = new Map();
+    pieceInfoMap
+      .set(config.KEY_PIECE_NAME, pieceName)// ["ABC",{}]
+      .set(config.KEY_PLAYER_COUNT, playerCountMap)
+      .set(config.KEY_PLAYER_SUM, countPlayer(playerCountMap))
+      .set(config.KEY_ASSIGN_ORDER, 'hoge');    
+    // pieceMapArray[pieceNameIdx].push(pieceInfoMap);
+    pieceMap.set(pieceName, pieceInfoMap); 
+    console.log('pieceInfoMap', pieceInfoMap)
+  });   
+
+  pieceNameArray.forEach((pieceName) => {
+    console.log(pieceName, pieceMap.get(pieceName).get(config.KEY_PLAYER_COUNT));
     }
   );
   
@@ -62,31 +67,35 @@ function assignParts(pieceMap, memberArray){
   const memberSum = memberArray.length;  
   const playerSum = countPlayerSum(pieceMap);
   const restSum = pieceSum * memberSum - playerSum;
-  const orderMap = new Map;
+  // const orderMap = new Map;
 
   console.log('restSum', restSum);
 
-  if (restSum){
-    pieceMap.forEach((playerCountMap, pieceName) => {
-      orderMap.set(pieceName, countPlayer(playerCountMap))
-    })
-  };
-  console.log(orderMap);//OK
+  // if (restSum){
+  //   pieceMap.forEach((playerCountMap, pieceName) => {
+  //     orderMap.set(pieceName, countPlayer(playerCountMap))//直す
+  //   })
+  // };
+  // console.log('orderMap', orderMap);//OK
+  console.log('pieceMap', pieceMap);
+
+  //TODO playerSumに値を入れる
   return 'hoge';
 };
 
 function countPlayer (playerCountMap) {
   let playerSum = 0;
+  console.log('playerCountMap', playerCountMap);
   playerCountMap.forEach(playerCount => {
     playerSum = playerSum + Number(playerCount);
-  });
+  });  
   return playerSum;
 }
 
 function countPlayerSum (pieceMap) {
   let playerSum = 0;
-  pieceMap.forEach(playerCountMap => {
-    playerSum = playerSum + countPlayer (playerCountMap);
+  pieceMap.forEach(pieceName => {
+    playerSum = playerSum + countPlayer (pieceName.get(config.KEY_PLAYER_COUNT));
   });
   return playerSum;
 };
