@@ -1,0 +1,9 @@
+extends layout
+block content  
+  div
+    each piece in pieces
+      h1 #{piece}
+        - var assigntmentMap = result.get(piece).get(assigntmenMapKey)
+        - var resultArray = Array.from(assigntmentMap)
+          each resultStr in resultArray
+            h3 #{resultStr}

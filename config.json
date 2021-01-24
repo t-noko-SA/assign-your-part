@@ -1,0 +1,10 @@
+{
+  "KEY_PIECE_NAME":"pieceName",
+  "KEY_PLAYER_COUNT":"playerCount",
+  "KEY_PLAYER_SUM":"playerSum",
+  "KEY_ASSIGN_ORDER":"assignOrder",
+  "KEY_ASSIGNTMENT_MAP": "assigntmentMap",
+  "KEY_PLAYER_NAME":"playerName",
+  "KEY_PLYAING_PIECE_SUM": "playingPieceSum",
+  "KEY_PLAYER_ARRAY": "playerArray"
+}
