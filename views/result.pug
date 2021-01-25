@@ -7,3 +7,11 @@ block content
         - var resultArray = Array.from(assigntmentMap)
           each resultStr in resultArray
             h3 #{resultStr}
+  form(method="post", action="/form/2")
+    button(type="submit") retry
+  p
+    a(href="./2") パート数選択に戻る
+  p
+    a(href="./1") 曲数メンバー設定に戻る
+  p
+    a(href="../") TOPに戻る

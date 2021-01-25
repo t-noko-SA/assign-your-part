@@ -1,25 +1,25 @@
 'use strict';
 const config = require('../config.json');
 const express = require('express');
-const $ = require('jquery');
-const { convertInputValuesIntoArray, makePieceMap, assignParts, makeCookie, getCookie } = require('../models/assignment');
+const { convertInputValuesIntoArray,makePieceMap, assignParts} = require('../models/assignment');
 const router = express.Router();
-const myFnc = require('../models/assignment');
-// const Cookies = require('js-cookie');
 
-router.get('/form/1', (req, res, next) => {
-  res.render('form1');
+router.get('/form/1', (req, res, next) => {  
+  res.render('form1',{
+    members : req.cookie(config.KEY_MEMBERS),
+    pieces : res.cookie(config.KEY_PIECES)
+  });
 });
 
 router.post('/form/1', (req, res, next) => {
   const inputLimit = 1000;
-  const members = req.body.members_field.slice(0, inputLimit);
-  const pieces = req.body.pieces_field.slice(0, inputLimit);
+  const members = req.body[config.KEY_MEMBERS].slice(0, inputLimit);
+  const pieces = req.body[config.KEY_PIECES].slice(0, inputLimit);
 
-  res.cookie('members',encodeURIComponent(members),{
+  res.cookie(config.KEY_MEMBERS,encodeURIComponent(members),{
     httpOnly: true, sameSite: true
   });
-  res.cookie('pieces',encodeURIComponent(pieces),{
+  res.cookie(config.KEY_PIECES,encodeURIComponent(pieces),{
     httpOnly: true, sameSite: true
   });
   
@@ -28,44 +28,30 @@ router.post('/form/1', (req, res, next) => {
 
 router.get('/form/2', (req, res, next) => {
   res.render('form2', {
-    memberCnt : myFnc.convertInputValuesIntoArray(req.cookies.members).length, 
-    pieceCnt : myFnc.convertInputValuesIntoArray(req.cookies.pieces).length,
-    pieces : myFnc.convertInputValuesIntoArray(req.cookies.pieces)
+    memberCnt : convertInputValuesIntoArray(req.cookies[config.KEY_MEMBERS]).length, 
+    pieceCnt : convertInputValuesIntoArray(req.cookies[config.KEY_PIECES]).length,
+    pieces : convertInputValuesIntoArray(req.cookies[config.KEY_PIECES])
   });
 
 });
 
 router.post('/form/2', (req, res, next) => {
-  const memberArray = myFnc.convertInputValuesIntoArray(req.cookies.members);
-  const pieceMap = makePieceMap(req);
+  const memberArray = convertInputValuesIntoArray(req.cookies[config.KEY_MEMBERS]);
+  const pieceMap = makePieceMap(req)[0];
   const resultPieceMap = assignParts(pieceMap, memberArray);//TODO modelsに移す    
   console.log('resultPieceMap', resultPieceMap);
-  console.log('config.KEY_ASSIGNTMENT_MAP', config.KEY_ASSIGNTMENT_MAP);
-  // console.log('test', resultPieceMap.get('ABC').get(config.KEY_ASSIGNTMENT_MAP));
+  res.cookie(config.KEY_INPUT_VALUE_ARRAY, encodeURIComponent(makePieceMap(req)[1].toString()),{
+    httpOnly: true, sameSite: true
+  });
   res.render('result',{
-    pieces : myFnc.convertInputValuesIntoArray(req.cookies.pieces),
-    // test : resultPieceMap.get('ABC').get(config.KEY_ASSIGNTMENT_MAP)
+    pieces : convertInputValuesIntoArray(req.cookies[config.KEY_PIECES]),
     result : resultPieceMap,
     assigntmenMapKey : config.KEY_ASSIGNTMENT_MAP
   });
 });
 
-router.get('/result', (req, res, next) => {
-  //  const cookie = getCookie(req);
-  // console.log('cookie', JSON.stringify(...cookie));//エラー
-  //  const test = decodeURIComponent(cookie.pieces).split('\r\n');
-  // const testCookie = req.cookies.resultPieceMap;
-  // console.log('req.cookies.testCookie', req.cookies.testCookie);
-  // console.log('testCookie', testCookie);
-  res.render('result', {
-    // pieces: decodeURIComponent(cookie.pieces).split(',')}
-    pieces : myFnc.convertInputValuesIntoArray(req.cookies.pieces)
-
-    // resultPieceMap : JSON.stringify(...myFnc.convertInputValuesIntoArray(req.cookies.resultPieceMap))
-    // resultPieceMap : myFnc.convertInputValuesIntoArray(req.cookies.resultPieceMap),  //TODO 直す
-    // pieces: "'ABC', 'EFG', 'HIJ'",
-    // ABC_part: [1, 2],
-  });
-});
+router.post('/retry', (req, res, next) => {
+  res.redirect(req.get('/form/2'));
+})
 
 module.exports = router;

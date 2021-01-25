@@ -13,24 +13,43 @@ function makePieceMap(req){
   // |n1	      |1    |2         |
   // |n1	      |2    |0         |
 
-  const pieceNameArray = convertInputValuesIntoArray(req.cookies.pieces) // => [ABC, DEF, GHI...] 曲ID [n0, n1, n2...] に1対1で対応
-  const inputValueArray = Object.entries(req.body).toString().split(','); // => [n0,1,1,n0,2,1,n1,1,2,n1...] 曲ID(n0), パート(1), パート人数(1), 曲ID(n0), パート(2), パート人数(1), 曲ID(n1), ...
+  const memberSum = convertInputValuesIntoArray(req.cookies[config.KEY_MEMBERS]).length;
+  const pieceNameArray = convertInputValuesIntoArray(req.cookies[config.KEY_PIECES]) // => [ABC, DEF, GHI...] 曲ID [n0, n1, n2...] に1対1で対応
+  const inputValueArray = Object.keys(req.body).length ? Object.entries(req.body).toString().split(',') : decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(',');
   const pieceMap = new Map(); // => {ABC: playerCountMap, DEF: playerCountMap...}
-  // playerCountMap => key: part, value: playerCount
-
-  const pieceIdArray = inputValueArray.filter((value, idx, array) => idx % 3 === 0); // => [n0,n0,n1...] 表のpieceId の要素を昇順に格納
-  const partArray = inputValueArray.filter((value, idx, array) => idx % 3 === 1); // => [1,2,1 ...] 表のpart の要素を昇順に格納　(曲ID n0 のパート1, 曲ID n0 のパート2, 曲ID n1 のパート1...)
+  // const pieceIdArray = inputValueArray.filter((value, idx, array) => idx % 3 === 0); // => [n0,n0,n1...] 表のpieceId の要素を昇順に格納
+  // const partArray = inputValueArray.filter((value, idx, array) => idx % 3 === 1); // => [1,2,1 ...] 表のpart の要素を昇順に格納　(曲ID n0 のパート1, 曲ID n0 のパート2, 曲ID n1 のパート1...)
   const playerCountArray = inputValueArray.filter((value, idx, array) => idx % 3 === 2); // => [1,1,2...] 表のplayerCount の要素を昇順に格納　(曲ID n0 のパート1の人数, 曲ID n0 のパート2の人数, 曲ID n2 のパート1の人数)
+  // console.log('memberSum', memberSum);
+  // console.log('Object.keys(req.body).length', Object.keys(req.body).length);
+  // console.log('inputValueArray', inputValueArray);
+  // console.log('pieceIdArray', pieceIdArray);
+  // console.log('partArray',partArray);
+  // console.log('playerCountArray', playerCountArray);
+  
   pieceNameArray.forEach((pieceName, pieceNameIdx) => {
-    const playerCountMap = fetchPlayerCountMap(pieceNameIdx);
-    const pieceInfoMap = new Map();
-    pieceInfoMap
-      .set(config.KEY_PIECE_NAME, pieceName)
-      .set(config.KEY_PLAYER_COUNT, playerCountMap)
-      .set(config.KEY_PLAYER_SUM, sumPlayer(playerCountMap))
-      // .set(config.KEY_ASSIGN_ORDER, 'hoge');    
+    const playerCountMap = makePlayerCountMap(pieceNameIdx);    
+    console.log('playerCountMap', playerCountMap);
+    const pieceInfoMap = new Map([
+      [config.KEY_PIECE_NAME, pieceName],
+      [config.KEY_PLAYER_COUNT, playerCountMap],
+      [config.KEY_PLAYER_SUM, sumPlayer(playerCountMap)]
+    ]);
+
     pieceMap.set(pieceName, pieceInfoMap); 
-    // console.log('pieceInfoMap', pieceInfoMap)
+    console.log('pieceInfoMap', pieceInfoMap)
+
+    function makePlayerCountMap(pieceNameIdx){
+      const playerCountMap = new Map();
+      const peaceStartIdx = memberSum * pieceNameIdx;
+
+      playerCountArray.filter((v,i) => {
+        return i >= peaceStartIdx && i <= peaceStartIdx + memberSum - 1;
+      }).forEach((v,i) => {
+        playerCountMap.set( i + 1 , v);
+      })
+      return playerCountMap;
+    }
   });   
 
   pieceNameArray.forEach((pieceName) => {
@@ -38,20 +57,20 @@ function makePieceMap(req){
     }
   );
   
-  return pieceMap;
+  return [pieceMap, inputValueArray];
 
-  function fetchPlayerCountMap(pieceNameIdx){//TODO もっとわかりやすくできないか考える
-    const i = pieceNameIdx * 3;
-    const playerCountMap = new Map();
-    const partArrayForEachPiece = partArray.slice(i, pieceIdArray.lastIndexOf(pieceIdArray[i]) + 1);
-    const playerCountArrayForEachPiece = playerCountArray.slice(i, pieceIdArray.lastIndexOf(pieceIdArray[i]) + 1);
-    
-    partArrayForEachPiece.forEach((v,i) =>{
-      return playerCountMap.set(v, playerCountArrayForEachPiece[i]);
-    });
+  // function fetchPlayerCountMap(pieceNameIdx){//TODO もっとわかりやすくできないか考える
+  //   const i = pieceNameIdx * 3;
+  //   const playerCountMap = new Map();
+  //   const partArrayForEachPiece = partArray.slice(i, pieceIdArray.lastIndexOf(pieceIdArray[i]) + 1);
+  //   const playerCountArrayForEachPiece = playerCountArray.slice(i, pieceIdArray.lastIndexOf(pieceIdArray[i]) + 1);
+  //   console.log('partArrayForEachPiece', partArrayForEachPiece);
+  //   partArrayForEachPiece.forEach((v,i) =>{
+  //     return playerCountMap.set(v, playerCountArrayForEachPiece[i]);
+  //   });
 
-    return playerCountMap;
-  };
+  //   return playerCountMap;
+  // };
   
 };
 
