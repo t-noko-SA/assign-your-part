@@ -179,7 +179,7 @@ function makeAssigntmentMap(playerArray, playerCountMap){
   playerCountMap.forEach((playerCount,part,array) =>{
     const partPlayerArray = [];
     for (let i = playerCount; i > 0; i --){
-      // console.log('playerArray[playerArrayIdx]', playerArray[playerArrayIdx]);
+      console.log('playerArray[playerArrayIdx]', playerArray[playerArrayIdx]);
       partPlayerArray.push(playerArray[playerArrayIdx]);
       playerArrayIdx++;
     };

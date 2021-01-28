@@ -1,4 +1,4 @@
-'use strict';
+'use strict';//名前をrooterに変更
 const config = require('../config.json');
 const express = require('express');
 const { convertInputValuesIntoArray,makePieceMap, assignParts} = require('../models/assignment');
@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.get('/form/1', (req, res, next) => {  
   res.render('form1',{
-    members : req.cookie(config.KEY_MEMBERS),
-    pieces : res.cookie(config.KEY_PIECES)
+    members : decodeURIComponent(req.cookies[config.KEY_MEMBERS]),
+    pieces : decodeURIComponent(req.cookies[config.KEY_PIECES])
   });
 });
 

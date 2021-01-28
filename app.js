@@ -9,7 +9,19 @@ var indexRouter = require('./routes/index');
 var assignmentRouter = require('./routes/assignments');
 
 var app = express();
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://code.jquery.com/jquery-3.5.1.slim.min.js", "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js", "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"],
+      connectSrc: ["'self'", "https://some-domain.com", "https://some.other.domain.com"],
+      styleSrc: ["'self'", "fonts.googleapis.com", "'unsafe-inline'", "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"],
+      fontSrc: ["'self'", "fonts.gstatic.com"],
+      imgSrc: ["'self'", "https://maps.gstatic.com", "https://maps.googleapis.com", "data:", "https://another-domain.com"],
+      frameSrc: ["'self'", "https://www.google.com"]      
+    }
+  }
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
