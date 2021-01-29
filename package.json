@@ -11,6 +11,7 @@
     "bootstrap": "^4.6.0",
     "cookie-parser": "^1.4.5",
     "css-loader": "^5.0.1",
+    "csurf": "^1.11.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "helmet": "^4.2.0",

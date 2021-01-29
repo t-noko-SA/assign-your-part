@@ -29,7 +29,7 @@ function makePieceMap(req){
   
   pieceNameArray.forEach((pieceName, pieceNameIdx) => {
     const playerCountMap = makePlayerCountMap(pieceNameIdx);    
-    console.log('playerCountMap', playerCountMap);
+    // console.log('playerCountMap', playerCountMap);
     const pieceInfoMap = new Map([
       [config.KEY_PIECE_NAME, pieceName],
       [config.KEY_PLAYER_COUNT, playerCountMap],
@@ -37,7 +37,7 @@ function makePieceMap(req){
     ]);
 
     pieceMap.set(pieceName, pieceInfoMap); 
-    console.log('pieceInfoMap', pieceInfoMap)
+    // console.log('pieceInfoMap', pieceInfoMap)
 
     function makePlayerCountMap(pieceNameIdx){
       const playerCountMap = new Map();
@@ -53,29 +53,16 @@ function makePieceMap(req){
   });   
 
   pieceNameArray.forEach((pieceName) => {
-    console.log(pieceName, pieceMap.get(pieceName).get(config.KEY_PLAYER_COUNT));
+    // console.log(pieceName, pieceMap.get(pieceName).get(config.KEY_PLAYER_COUNT));
     }
   );
   
-  return [pieceMap, inputValueArray];
-
-  // function fetchPlayerCountMap(pieceNameIdx){//TODO もっとわかりやすくできないか考える
-  //   const i = pieceNameIdx * 3;
-  //   const playerCountMap = new Map();
-  //   const partArrayForEachPiece = partArray.slice(i, pieceIdArray.lastIndexOf(pieceIdArray[i]) + 1);
-  //   const playerCountArrayForEachPiece = playerCountArray.slice(i, pieceIdArray.lastIndexOf(pieceIdArray[i]) + 1);
-  //   console.log('partArrayForEachPiece', partArrayForEachPiece);
-  //   partArrayForEachPiece.forEach((v,i) =>{
-  //     return playerCountMap.set(v, playerCountArrayForEachPiece[i]);
-  //   });
-
-  //   return playerCountMap;
-  // };
-  
+  return [pieceMap, inputValueArray];  
 };
 
 function assignParts(pieceMap, memberArray){
   const memberMap = makeMemberMap(pieceMap, memberArray);
+  console.log('memberArray', memberArray);//OK
   const unAssignedMemberMap = makeUnAssignedMemberMap(memberArray, memberMap);  
   const sortedPieceArray = makeSortedPieceArray(pieceMap);
 
@@ -84,9 +71,9 @@ function assignParts(pieceMap, memberArray){
     const playerArray = makePlayerArray(piece, memberMap, unAssignedMemberMap);
     const playerCountMap = piece.get(config.KEY_PLAYER_COUNT);
     piece.set(config.KEY_PLAYER_ARRAY, playerArray);
-    console.log(pieceName);
+    // console.log(pieceName);
     const assigntmentMap = makeAssigntmentMap(playerArray, playerCountMap);
-    console.log('assigntmentMap', assigntmentMap);
+    // console.log('assigntmentMap', assigntmentMap);
     piece.set(config.KEY_ASSIGNTMENT_MAP, assigntmentMap);
     });
   return pieceMap;
@@ -119,7 +106,6 @@ function makeUnAssignedMemberMap(memberArray, memberMap){
   memberArray.forEach(memberName => {
     unAssignedMemberMap.set(memberName, memberMap.get(memberName).get(config.KEY_PLYAING_PIECE_SUM));
   });
-  // console.log ('unAssignedMemberMap', unAssignedMemberMap);
   return unAssignedMemberMap;
 }
 
@@ -151,24 +137,25 @@ function chooseIndex(arrayLength){
 function makePlayerArray(piece, memberMap, unAssignedMemberMap){
   const playerArray = [];
   const unAssignedMemberArray = Array.from(unAssignedMemberMap.keys());//TODO debug
+  // console.log('unAssignedMemberArray',unAssignedMemberArray);
   const playerSum = piece.get(config.KEY_PLAYER_SUM);//OK
   let i = playerSum;
   while (i > 0) {
     const choosedIndex = chooseIndex(unAssignedMemberArray.length);
     const choosedMember = unAssignedMemberArray[choosedIndex];
     playerArray.push(choosedMember);
-    unAssignedMemberArray.splice(unAssignedMemberArray.indexOf(choosedMember),1);
+    unAssignedMemberArray.splice(unAssignedMemberArray.indexOf(choosedMember),1);//TODO 同名がいたときに不具合が出る
     // console.log('choosedMember', choosedMember, 'unAssignedMemberArray', unAssignedMemberArray);
     unAssignedMemberMap.set(choosedMember, Number(unAssignedMemberMap.get(choosedMember))-1);
     if (unAssignedMemberMap.get(choosedMember)===0) {
       unAssignedMemberMap.delete(choosedMember);
-      console.log('deleted', choosedMember, 'unAssignedMemberMap', unAssignedMemberMap);
+      // console.log('deleted', choosedMember, 'unAssignedMemberMap', unAssignedMemberMap);
     }
     // console.log('unAssignedMemberMap', unAssignedMemberMap);
     i--;
   }
   
-  console.log('pieceName', piece.get(config.KEY_PIECE_NAME),'playerArray', playerArray, 'unAssignedMemberArray', unAssignedMemberArray)// playerArray.push()
+  // console.log('pieceName', piece.get(config.KEY_PIECE_NAME),'playerArray', playerArray, 'unAssignedMemberArray', unAssignedMemberArray)// playerArray.push()
   return playerArray;
 }
 
@@ -179,7 +166,7 @@ function makeAssigntmentMap(playerArray, playerCountMap){
   playerCountMap.forEach((playerCount,part,array) =>{
     const partPlayerArray = [];
     for (let i = playerCount; i > 0; i --){
-      console.log('playerArray[playerArrayIdx]', playerArray[playerArrayIdx]);
+      // console.log('playerArray[playerArrayIdx]', playerArray[playerArrayIdx]);
       partPlayerArray.push(playerArray[playerArrayIdx]);
       playerArrayIdx++;
     };
@@ -192,7 +179,7 @@ function makeAssigntmentMap(playerArray, playerCountMap){
 
 function sumPlayer (playerCountMap) {
   let playerSum = 0;
-  console.log('playerCountMap', playerCountMap);
+  // console.log('playerCountMap', playerCountMap);
   playerCountMap.forEach(playerCount => {
     playerSum = playerSum + Number(playerCount);
   });  
@@ -215,15 +202,21 @@ function makeSortedPieceArray (pieceMap) {
   const sortedPieceArray = tempArray.sort((a, b) => {
     if(a.value < b.value) return 1;
     if(a.value > b.value) return -1;
-    if(a.value = b.value) return Math.floor(Math.random() * 3) -1;
+    if(a.value = b.value) return Math.floor(Math.random() * 3) -1;// -> -1 or 0 or 1
   }).map(v => v.key);
-  console.log('tempArray', tempArray);
-  console.log('sortedPieceArray', sortedPieceArray);
+  // console.log('tempArray', tempArray);
+  // console.log('sortedPieceArray', sortedPieceArray);
   return sortedPieceArray;
 };
 
-function convertInputValuesIntoArray(inputValues) {
-  return decodeURIComponent(inputValues).trim().split('\n').map((s) => s.trim()).filter((s) => s !== "");
+function convertInputValuesIntoArray(inputValuesOrReqCookies) {
+  // const arr = decodeURIComponent(inputValuesOrReqCookies).trim().split('\n').map((s) => s.trim()).filter((s) => s !== "");
+  const arr = decodeURIComponent(inputValuesOrReqCookies).slice(0, config.PARAM_MAX_INPUT_SIZE).trim().split('\n').map((s) => s.trim()).filter((s) => s !== "");
+
+  if(arr.length>config.PARAM_MAX_INPUT_LENGTH){
+    arr.length=config.PARAM_MAX_INPUT_LENGTH;
+  };
+  return Array.from(new Set(arr));//重複排除
 };
 
 module.exports = {convertInputValuesIntoArray, makePieceMap, assignParts};

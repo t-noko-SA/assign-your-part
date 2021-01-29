@@ -1,7 +1,15 @@
 extends layout
 
 block content
+  nav(aria-label="breadcrumb")
+    ol.breadcrumb
+      li.breadcrumb-item: a(href="../") HOME
+      li.breadcrumb-item: a(href="./1") 曲・メンバー入力
+      li.breadcrumb-item.active パート数入力
+      li.breadcrumb-item: a(href="#") 結果
+
   form(method="post", action="/form/2")
+    button#bt-submit-1(class="btn btn-primary" type="submit") 次へ
     div
       - let i = 0;
       while i < pieceCnt
@@ -25,11 +33,7 @@ block content
                 - j++
           - i++
 
-    button#bt-submit(type="submit") 次へ
-
-  p
-    a(href="./1") 曲数メンバー設定に戻る
-  p
-    a(href="../") TOPに戻る
+    //- input(type="hidden", name="pieces", value=pieces)
+    button#bt-submit-2(class="btn btn-primary" type="submit") 次へ
 
   //- script(type="text/javascript" src="/app/entry.js")

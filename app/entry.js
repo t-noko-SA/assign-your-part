@@ -1,8 +1,8 @@
 'use strict';
 const $ = require('jquery');
 const global = Function('return this;')();
+const config = require('../config.json');
 global.jQuery = $;
-
 window.onload = handleOnload();
 
 function handleOnload(){
@@ -25,10 +25,10 @@ function displayCounter(){
     };
     if(sum>limit){
       $counter[0].innerHTML= '<font color="red">' + `プレイヤー${sum}人/メンバー${limit}人中　曲のプレイヤー数の合計がメンバー数が超えています` +'</font>';
-      $('#bt-submit').prop("disabled", true);
+      $('[id^=bt-submit]').prop("disabled", true);
     }else{
       $counter[0].innerHTML= `プレイヤー${sum}人/メンバー${limit}人中`;
-      $('#bt-submit').prop("disabled", false);
+      $('[id^=bt-submit]').prop("disabled", false);
     }
 }
 

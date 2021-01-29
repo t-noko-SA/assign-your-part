@@ -1,5 +1,12 @@
 extends layout
 block content  
+  nav(aria-label="breadcrumb")
+    ol.breadcrumb
+      li.breadcrumb-item: a(href="../") HOME
+      li.breadcrumb-item: a(href="./1") 曲・メンバー入力
+      li.breadcrumb-item: a(href="./2")  パート数入力
+      li.breadcrumb-item.active 結果
+
   div
     each piece in pieces
       h1 #{piece}
@@ -8,7 +15,7 @@ block content
           each resultStr in resultArray
             h3 #{resultStr}
   form(method="post", action="/form/2")
-    button(type="submit") retry
+    button(class="btn btn-primary" type="submit") retry
   p
     a(href="./2") パート数選択に戻る
   p

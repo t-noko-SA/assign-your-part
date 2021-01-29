@@ -1,15 +1,23 @@
 extends layout
 
 block content
-  form(method="post", action="/form/1")
+  nav(aria-label="breadcrumb")
+    ol.breadcrumb
+      li.breadcrumb-item: a(href="../") HOME
+      li.breadcrumb-item.active 曲・メンバー入力
+      li.breadcrumb-item: a(href="#") パート数入力
+      li.breadcrumb-item: a(href="#") 結果
+      
+  form(method="post")
     div
-      h5 メンバー(改行して複数入力してください)
+      h5 メンバーを入力してください。(改行すると複数入力できます。※最大30人 ※重複は1人になります)
       textarea(id="members" name="members") #{members}
     div
-      h5 曲名(改行して複数入力してください)
+      h5 曲名を入力してください。(改行すると複数入力できます。※最大30曲 ※重複は1曲になります)
       textarea(id="pieces" name="pieces") #{pieces}
-    button(type="submit") 次へ
-    //- TODO クリアボタン
+    //- button(class="btn btn-primary" type="submit") 次へ
+    button(class="btn btn-primary" type="submit" formaction="/form/1") 次へ    
+    button#clear(class="btn btn-outline-secondary"  formaction="/form/1:clear") クリア
 
   p
     a(href="../") TOPに戻る

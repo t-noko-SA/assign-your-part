@@ -94,6 +94,9 @@
 var $ = __webpack_require__(1);
 
 var global = Function('return this;')();
+
+var config = __webpack_require__(2);
+
 global.jQuery = $;
 window.onload = handleOnload();
 
@@ -103,7 +106,9 @@ function handleOnload() {
   $('input').on("click", displayCounter);
 }
 
-;
+; //TODO セレクタをきれいにする
+//TODO displayCounterとdisplayCounterOnloadの共通部分をまとめる
+//TODO 定数をconfigに移す
 
 function displayCounter() {
   var limit = $('.piece').eq(0).children('.part').length;
@@ -120,10 +125,10 @@ function displayCounter() {
 
   if (sum > limit) {
     $counter[0].innerHTML = '<font color="red">' + "\u30D7\u30EC\u30A4\u30E4\u30FC".concat(sum, "\u4EBA/\u30E1\u30F3\u30D0\u30FC").concat(limit, "\u4EBA\u4E2D\u3000\u66F2\u306E\u30D7\u30EC\u30A4\u30E4\u30FC\u6570\u306E\u5408\u8A08\u304C\u30E1\u30F3\u30D0\u30FC\u6570\u304C\u8D85\u3048\u3066\u3044\u307E\u3059") + '</font>';
-    $('#bt-submit').prop("disabled", true);
+    $('[id^=bt-submit]').prop("disabled", true);
   } else {
     $counter[0].innerHTML = "\u30D7\u30EC\u30A4\u30E4\u30FC".concat(sum, "\u4EBA/\u30E1\u30F3\u30D0\u30FC").concat(limit, "\u4EBA\u4E2D");
-    $('#bt-submit').prop("disabled", false);
+    $('[id^=bt-submit]').prop("disabled", false);
   }
 }
 
@@ -11020,6 +11025,12 @@ if ( typeof noGlobal === "undefined" ) {
 return jQuery;
 } );
 
+
+/***/ }),
+/* 2 */
+/***/ (function(module) {
+
+module.exports = {"KEY_PIECE_NAME":"pieceName","KEY_PLAYER_COUNT":"playerCount","KEY_PLAYER_SUM":"playerSum","KEY_ASSIGN_ORDER":"assignOrder","KEY_ASSIGNTMENT_MAP":"assigntmentMap","KEY_PLAYER_NAME":"playerName","KEY_PLYAING_PIECE_SUM":"playingPieceSum","KEY_PLAYER_ARRAY":"playerArray","KEY_INPUT_VALUE_ARRAY":"inputValueArray","KEY_MEMBERS":"members","KEY_PIECES":"pieces","PARAM_MAX_INPUT_LENGTH":30,"PARAM_MAX_INPUT_SIZE":1000};
 
 /***/ })
 /******/ ]);

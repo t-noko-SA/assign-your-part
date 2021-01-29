@@ -9,5 +9,7 @@
   "KEY_PLAYER_ARRAY": "playerArray",
   "KEY_INPUT_VALUE_ARRAY": "inputValueArray",
   "KEY_MEMBERS": "members",
-  "KEY_PIECES": "pieces"
+  "KEY_PIECES": "pieces",
+  "PARAM_MAX_INPUT_LENGTH": 30,
+  "PARAM_MAX_INPUT_SIZE": 1000
 }
