@@ -62,7 +62,6 @@ function makePieceMap(req){
 
 function assignParts(pieceMap, memberArray){
   const memberMap = makeMemberMap(pieceMap, memberArray);
-  console.log('memberArray', memberArray);//OK
   const unAssignedMemberMap = makeUnAssignedMemberMap(memberArray, memberMap);  
   const sortedPieceArray = makeSortedPieceArray(pieceMap);
 
