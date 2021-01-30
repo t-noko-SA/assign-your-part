@@ -8,17 +8,15 @@ block content
       li.breadcrumb-item.active 結果
 
   div
+    h5 結果
+  div
     each piece in pieces
-      h1 #{piece}
-        - var assigntmentMap = result.get(piece).get(assigntmenMapKey)
-        - var resultArray = Array.from(assigntmentMap)
-          each resultStr in resultArray
-            h3 #{resultStr}
+      div.card.bg-light.mb-3.column
+        div.piece.card-body    
+          h2.card-title #{piece}
+            - var assigntmentMap = result.get(piece).get(assigntmenMapKey)
+            - var resultArray = Array.from(assigntmentMap)
+              each resultStr in resultArray
+                h4 #{resultStr}
   form(method="post", action="/form/2")
-    button(class="btn btn-primary" type="submit") retry
-  p
-    a(href="./2") パート数選択に戻る
-  p
-    a(href="./1") 曲数メンバー設定に戻る
-  p
-    a(href="../") TOPに戻る
+    button.btn.btn-primary.my-3(type="submit") もう1回

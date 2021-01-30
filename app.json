@@ -1,0 +1,7 @@
+{
+  "name": "assign-your-part",
+  "description": "管楽器のパートを決めるよ",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}

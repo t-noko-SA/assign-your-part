@@ -1,6 +1,6 @@
 extends layout
-
 block content
+  -var partNumArr = [0,"1st","2nd","3rd","4th","5th","6th","7th","8th","9th","10th","11th","12th","13th","14th","15th","16th","17th","18th","19th","20th","21st","22nd","23rd","24th","25th","26th","27th","28th","29th","30th","31st","32nd","33rd","34th","35th","36th","37th","38th","39th","40th","41st","42nd","43rd","44th","45th","46th","47th","48th","49th","50th"]
   nav(aria-label="breadcrumb")
     ol.breadcrumb
       li.breadcrumb-item: a(href="../") HOME
@@ -9,31 +9,32 @@ block content
       li.breadcrumb-item: a(href="#") 結果
 
   form(method="post", action="/form/2")
-    button#bt-submit-1(class="btn btn-primary" type="submit") 次へ
+    h5 STEP3 曲・パート毎の人数を選択してください
+    div ※規定値は1パートにつき1人です
     div
+      button#bt-submit-1.btn.btn-primary.my-3(type="submit") 次へ        
       - let i = 0;
       while i < pieceCnt
-        div.piece
-          h2 #{pieces[i]}
-          p.ml-3.counter
-          - let j =1;
-          while j <= memberCnt
-            div.part
-              h5.ml-1 #{j} 番
-              - let k = 0;
-              .btn-toolbar.btn-group.part-count-button
-              p.m-2 人数
-                while k <= memberCnt
-                  if k == '1'
-                    input.mx-1(type='radio', id = 'n' + i +'_'+ j, name = 'n' + i +','+ j, value= k, checked = 'checked')
-                  else
-                    input.mx-1(type='radio', id = 'n' + i +'_'+ j, name = 'n' + i +','+ j, value= k)
-                  label(for='#{k}') #{k}人 
-                  - k++
+        div.card.bg-light.my-3.column
+          div.piece.card-body
+            h2.card-title #{pieces[i]}
+            h7.card-subtitle.ml-3.counter
+            br
+            - let j =1;
+            while j <= memberCnt
+              div.part.m-2.btn-group.btn-group-toggle.btn-group-sm(data-toggle="buttons") #{partNumArr[j]}
+                - let k = 0;              
+                  while k <= memberCnt
+                    if k == '1'
+                      label.btn.btn-outline-secondary.active(for='n' + i +'_'+ j +'_' + k) #{k}人
+                        input.mx-1(type='radio', id = 'n' + i +'_'+ j +'_' + k, name = 'n' + i +','+ j, value= k, autocomplete="off", checked)
+                    else
+                      label.btn.btn-outline-secondary(for='n' + i +'_'+ j +'_' + k) #{k}人 
+                        input.mx-1(type='radio', id = 'n' + i +'_'+ j +'_' + k, name = 'n' + i +','+ j, value= k, autocomplete="off")                  
+                    - k++
                 - j++
-          - i++
+              br
+            - i++
 
-    //- input(type="hidden", name="pieces", value=pieces)
-    button#bt-submit-2(class="btn btn-primary" type="submit") 次へ
-
-  //- script(type="text/javascript" src="/app/entry.js")
+    button#bt-submit-2.btn.btn-primary.my-3(type="submit") 次へ
+    //- TODO partNumArr[j]とラジオボタンの間にスペースを空ける

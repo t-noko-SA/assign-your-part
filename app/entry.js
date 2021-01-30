@@ -7,21 +7,27 @@ window.onload = handleOnload();
 
 function handleOnload(){
   displayCounterOnLoad();//全てのpieceに対して実行する
-  $('input').on("click",displayCounter);
-};
+  $('label').on("click",function(e){
+    // console.log('e.target', e.target);
+    if($(e.target).is('input')){displayCounter($(e.currentTarget))}
+    });
+  }
 
 //TODO セレクタをきれいにする
 //TODO displayCounterとdisplayCounterOnloadの共通部分をまとめる
 //TODO 定数をconfigに移す
 
-function displayCounter(){
+function displayCounter($ct){
   const limit = $('.piece').eq(0).children('.part').length;
-  const $target = $(this).parent().parent().parent().find(':checked');
-  const $counter = $(this).parent().parent().parent().find('.counter');
+  const $target = $ct.parent().parent().find(':checked');
+  const $counter = $ct.parent().parent().find('.counter');
+  console.log($ct);
   let sum = 0;
+    // $ct.children('input').checked = true;
     for( let i = 0; i < $target.length; i++){
       const num = $target[i].value;
       sum = sum + Number(num);
+      console.log($target, $target[i].value, i, sum);
     };
     if(sum>limit){
       $counter[0].innerHTML= '<font color="red">' + `プレイヤー${sum}人/メンバー${limit}人中　曲のプレイヤー数の合計がメンバー数が超えています` +'</font>';

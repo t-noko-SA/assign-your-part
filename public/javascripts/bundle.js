@@ -103,22 +103,28 @@ window.onload = handleOnload();
 function handleOnload() {
   displayCounterOnLoad(); //全てのpieceに対して実行する
 
-  $('input').on("click", displayCounter);
-}
-
-; //TODO セレクタをきれいにする
+  $('label').on("click", function (e) {
+    // console.log('e.target', e.target);
+    if ($(e.target).is('input')) {
+      displayCounter($(e.currentTarget));
+    }
+  });
+} //TODO セレクタをきれいにする
 //TODO displayCounterとdisplayCounterOnloadの共通部分をまとめる
 //TODO 定数をconfigに移す
 
-function displayCounter() {
+
+function displayCounter($ct) {
   var limit = $('.piece').eq(0).children('.part').length;
-  var $target = $(this).parent().parent().parent().find(':checked');
-  var $counter = $(this).parent().parent().parent().find('.counter');
-  var sum = 0;
+  var $target = $ct.parent().parent().find(':checked');
+  var $counter = $ct.parent().parent().find('.counter');
+  console.log($ct);
+  var sum = 0; // $ct.children('input').checked = true;
 
   for (var i = 0; i < $target.length; i++) {
     var num = $target[i].value;
     sum = sum + Number(num);
+    console.log($target, $target[i].value, i, sum);
   }
 
   ;

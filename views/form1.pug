@@ -1,5 +1,4 @@
 extends layout
-
 block content
   nav(aria-label="breadcrumb")
     ol.breadcrumb
@@ -10,14 +9,14 @@ block content
       
   form(method="post")
     div
-      h5 メンバーを入力してください。(改行すると複数入力できます。※最大30人 ※重複は1人になります)
-      textarea(id="members" name="members") #{members}
+      h5 STEP1 改行で区切ってメンバーを入力してください
+      div ※最大30人 ※重複は1人になります
+      div
+        textarea.m-3(id="members" name="members") #{members}
     div
-      h5 曲名を入力してください。(改行すると複数入力できます。※最大30曲 ※重複は1曲になります)
-      textarea(id="pieces" name="pieces") #{pieces}
-    //- button(class="btn btn-primary" type="submit") 次へ
-    button(class="btn btn-primary" type="submit" formaction="/form/1") 次へ    
-    button#clear(class="btn btn-outline-secondary"  formaction="/form/1:clear") クリア
-
-  p
-    a(href="../") TOPに戻る
+      h5 STEP2 改行で区切って曲名を入力してください
+      div ※最大30曲 ※重複は1曲になります
+      div
+        textarea.m-3(id="pieces" name="pieces") #{pieces}
+    button.btn.btn-primary.m-3(type="submit" formaction="/form/1") 次へ    
+    button#clear.btn.btn-outline-secondary.m-3(formaction="/form/1:clear") クリア
