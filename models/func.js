@@ -3,23 +3,7 @@
 var config = require('../config.json');
 
 function makePieceMap(req){
-  
-  // inputValueArray: 下表の要素が左上から右下の順に格納される
 
-  // |pieceId	|part	|playerCount|
-  // +----------+-----+----------|
-  // |n0	      |1    |1         |
-  // |n0	      |2    |1         |
-  // |n1	      |1    |2         |
-  // |n1	      |2    |0         |
-
-  // 'ABC' => Map {
-  //   'pieceName' => 'ABC',
-  //   'playerCount' => Map { 1 => '1', 2 => '1', 3 => '1' },
-  //   'playerSum' => 3,
-  //   'playerArray' => [ 'Yoko', 'Paul', 'John' ],
-  //   'assigntmentMap' => Map { 1 => [Array], 2 => [Array], 3 => [Array] } },
-  // 'DEF' => Map {
   const memberSum = convertInputValuesIntoArray(req.cookies[config.KEY_MEMBERS]).length;
   const pieceNameArray = convertInputValuesIntoArray(req.cookies[config.KEY_PIECES]) // => 例[ABC, DEF, GHI...] 曲ID(n0, n1, n2...) に1対1で対応
   const inputValueArray = Object.keys(req.body).length ? Object.entries(req.body).toString().split(',') : decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(',');
