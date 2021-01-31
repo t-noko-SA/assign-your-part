@@ -20,12 +20,10 @@ function makePieceMap(req){
   // const pieceIdArray = inputValueArray.filter((value, idx, array) => idx % 3 === 0); // => [n0,n0,n1...] 表のpieceId の要素を昇順に格納
   // const partArray = inputValueArray.filter((value, idx, array) => idx % 3 === 1); // => [1,2,1 ...] 表のpart の要素を昇順に格納　(曲ID n0 のパート1, 曲ID n0 のパート2, 曲ID n1 のパート1...)
   const playerCountArray = inputValueArray.filter((value, idx, array) => idx % 3 === 2); // => [1,1,2...] 表のplayerCount の要素を昇順に格納　(曲ID n0 のパート1の人数, 曲ID n0 のパート2の人数, 曲ID n2 のパート1の人数)
-  // console.log('memberSum', memberSum);
   // console.log('Object.keys(req.body).length', Object.keys(req.body).length);
+  // console.log('Object.entries(req.body).toString().split(',Object.entries(req.body).toString().split(','))
+  // console.log('decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(', decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(','))
   // console.log('inputValueArray', inputValueArray);
-  // console.log('pieceIdArray', pieceIdArray);
-  // console.log('partArray',partArray);
-  // console.log('playerCountArray', playerCountArray);
   
   pieceNameArray.forEach((pieceName, pieceNameIdx) => {
     const playerCountMap = makePlayerCountMap(pieceNameIdx);    
@@ -208,9 +206,9 @@ function makeSortedPieceArray (pieceMap) {
   return sortedPieceArray;
 };
 
-function convertInputValuesIntoArray(inputValuesOrReqCookies) {
+function convertInputValuesIntoArray(inputValues) {
   // const arr = decodeURIComponent(inputValuesOrReqCookies).trim().split('\n').map((s) => s.trim()).filter((s) => s !== "");
-  const arr = decodeURIComponent(inputValuesOrReqCookies).slice(0, config.PARAM_MAX_INPUT_SIZE).trim().split('\n').map((s) => s.trim()).filter((s) => s !== "");
+  const arr = decodeURIComponent(inputValues).slice(0, config.PARAM_MAX_INPUT_SIZE).trim().split('\n').map((s) => s.trim()).filter((s) => s !== "");
 
   if(arr.length>config.PARAM_MAX_INPUT_LENGTH){
     arr.length=config.PARAM_MAX_INPUT_LENGTH;
@@ -218,4 +216,8 @@ function convertInputValuesIntoArray(inputValuesOrReqCookies) {
   return Array.from(new Set(arr));//重複排除
 };
 
-module.exports = {convertInputValuesIntoArray, makePieceMap, assignParts};
+function formatReqCookie(reqCookie){ //cookie -> req.cookies['members']
+  return decodeURIComponent(reqCookie).slice(0,config.PARAM_MAX_INPUT_SIZE);
+};
+
+module.exports = {convertInputValuesIntoArray, makePieceMap, assignParts, formatReqCookie};
