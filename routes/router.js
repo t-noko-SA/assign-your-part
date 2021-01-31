@@ -7,7 +7,7 @@ const isLocalhost = require('../models/isLocalhost');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  res.render('index', { title: 'パート決めアプリ' });
+  res.render('index');
 });
 
 router.post('/', (req, res, next) => {

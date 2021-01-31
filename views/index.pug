@@ -1,6 +1,19 @@
 extends layout
-
 block content
-  h1= title
-  p Welcome to #{title}
-  a(href="./form/1") 使ってみる
+  nav(aria-label="breadcrumb")
+    ol.breadcrumb
+      li.breadcrumb-item.active HOME
+      li.breadcrumb-item: a(href="#") 曲・メンバー入力
+      li.breadcrumb-item: a(href="#") パート数入力
+      li.breadcrumb-item: a(href="#") 結果
+
+  div.container-fluid
+    h1.display-3 #{title}
+    p.my-3.text-justify パート決めヘルパーは、アンサンブルや合奏における管楽器のパート決めを手助けします。
+
+    li STEP1: 曲とメンバーを入力
+    li STEP2: パート構成を入力
+    li STEP3: 結果発表！やり直しもできるよ。
+    
+    //- a.my-5(href="./form/1") 使ってみる
+    button.btn.btn-primary.my-3(onclick="location.href='./form/1'") Start
