@@ -13,18 +13,21 @@ function makePieceMap(req){
   // |n1	      |1    |2         |
   // |n1	      |2    |0         |
 
+  // 'ABC' => Map {
+  //   'pieceName' => 'ABC',
+  //   'playerCount' => Map { 1 => '1', 2 => '1', 3 => '1' },
+  //   'playerSum' => 3,
+  //   'playerArray' => [ 'Yoko', 'Paul', 'John' ],
+  //   'assigntmentMap' => Map { 1 => [Array], 2 => [Array], 3 => [Array] } },
+  // 'DEF' => Map {
   const memberSum = convertInputValuesIntoArray(req.cookies[config.KEY_MEMBERS]).length;
-  const pieceNameArray = convertInputValuesIntoArray(req.cookies[config.KEY_PIECES]) // => [ABC, DEF, GHI...] 曲ID [n0, n1, n2...] に1対1で対応
+  const pieceNameArray = convertInputValuesIntoArray(req.cookies[config.KEY_PIECES]) // => 例[ABC, DEF, GHI...] 曲ID(n0, n1, n2...) に1対1で対応
   const inputValueArray = Object.keys(req.body).length ? Object.entries(req.body).toString().split(',') : decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(',');
   const pieceMap = new Map(); // => {ABC: playerCountMap, DEF: playerCountMap...}
   // const pieceIdArray = inputValueArray.filter((value, idx, array) => idx % 3 === 0); // => [n0,n0,n1...] 表のpieceId の要素を昇順に格納
   // const partArray = inputValueArray.filter((value, idx, array) => idx % 3 === 1); // => [1,2,1 ...] 表のpart の要素を昇順に格納　(曲ID n0 のパート1, 曲ID n0 のパート2, 曲ID n1 のパート1...)
   const playerCountArray = inputValueArray.filter((value, idx, array) => idx % 3 === 2); // => [1,1,2...] 表のplayerCount の要素を昇順に格納　(曲ID n0 のパート1の人数, 曲ID n0 のパート2の人数, 曲ID n2 のパート1の人数)
-  // console.log('Object.keys(req.body).length', Object.keys(req.body).length);
-  // console.log('Object.entries(req.body).toString().split(',Object.entries(req.body).toString().split(','))
-  // console.log('decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(', decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(','))
-  // console.log('inputValueArray', inputValueArray);
-  
+
   pieceNameArray.forEach((pieceName, pieceNameIdx) => {
     const playerCountMap = makePlayerCountMap(pieceNameIdx);    
     // console.log('playerCountMap', playerCountMap);

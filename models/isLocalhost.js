@@ -1,4 +1,6 @@
 'use strict';
+//参考: Node.jsのSPAでlocalhostのときのみRollbarの通知をとめる
+//https://wp-kyoto.net/disabled-rollbar-when-localhost/
 function isLocalhost(host = '') {
   if (!host)
     return true;

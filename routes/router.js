@@ -2,7 +2,7 @@
 //TODO 変数名と値が全体で一致するようにする
 const config = require('../config.json');
 const express = require('express');
-const { convertInputValuesIntoArray,makePieceMap, assignParts, formatReqCookie} = require('../models/assignment');
+const {convertInputValuesIntoArray,makePieceMap, assignParts, formatReqCookie} = require('../models/func');
 const isLocalhost = require('../models/isLocalhost');
 const router = express.Router();
 
@@ -72,6 +72,7 @@ router.post('/form/2', (req, res, next) => {
   const resultPieceMap = assignParts(pieceMap, memberArray);//TODO modelsに移す
   const location = typeof window === 'object' ? window.location : {};
   const host = typeof location === 'object' ? location.host : '';      
+  console.log('pieceMap', pieceMap);
   // console.log('resultPieceMap', resultPieceMap);
   // console.log('pieces', req.body[config.KEY_PIECES].slice(0, config.PARAM_MAX_INPUT_SIZE));
   if(!isLocalhost(host)){
