@@ -57,3 +57,4 @@ yarn install
 * t-noko
 
 # License
+GNU General Public License v3.0
