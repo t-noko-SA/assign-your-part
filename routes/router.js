@@ -1,11 +1,10 @@
 'use strict';
 // TODO 変数名と値が全体で一致するようにする
-const config = require('../config.json');
 const express = require('express');
-const {
-  convertReqCookieIntoArray, makePieceMap, assignParts, formatReqCookie,
-} = require('../models/func');
+const config = require('../config.json');
+const { convertReqCookieIntoArray, formatReqCookie } = require('../models/assigntmentFunc');
 const isLocalhost = require('../models/isLocalhost');
+const makeResultPieceMap = require('../models/makeResultPieceMap');
 
 const router = express.Router();
 
@@ -58,9 +57,6 @@ router.post('/form/1:clear', (req, res, next) =>{
 
 router.get('/form/2', (req, res, next) => {
   res.render('form2', {
-    // memberCnt: convertReqCookieIntoArray(req.cookies[config.KEY_MEMBERS]).length,
-    // pieceCnt: convertReqCookieIntoArray(req.cookies[config.KEY_PIECES]).length,
-    // pieces: convertReqCookieIntoArray(req.cookies[config.KEY_PIECES]),
     memberCnt: convertReqCookieIntoArray(req.cookies[config.KEY_MEMBERS]).length,
     pieceCnt: convertReqCookieIntoArray(req.cookies[config.KEY_PIECES]).length,
     pieces: convertReqCookieIntoArray(req.cookies[config.KEY_PIECES]),
@@ -69,20 +65,19 @@ router.get('/form/2', (req, res, next) => {
 });
 
 router.post('/form/2', (req, res, next) => {
-  const memberArray = convertReqCookieIntoArray(req.cookies[config.KEY_MEMBERS]);
-  const pieceMap = makePieceMap(req)[0];
-  const resultPieceMap = assignParts(pieceMap, memberArray);//TODO modelsに移す
   const location = typeof window === 'object' ? window.location : {};
   const host = typeof location === 'object' ? location.host : '';
-  console.log('pieceMap', pieceMap);
-  // console.log('resultPieceMap', resultPieceMap);
-  // console.log('pieces', req.body[config.KEY_PIECES].slice(0, config.PARAM_MAX_INPUT_SIZE));
+  const resultPieceMap = makeResultPieceMap(
+    req, convertReqCookieIntoArray(req.cookies[config.KEY_MEMBERS]),
+  );
+  const inputValueArray = Object.keys(req.body).length ? Object.entries(req.body).toString().split(',') : decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(',');
+
   if (!isLocalhost(host)) {
-    res.cookie(config.KEY_INPUT_VALUE_ARRAY, encodeURIComponent(makePieceMap(req)[1].toString()), {
+    res.cookie(config.KEY_INPUT_VALUE_ARRAY, encodeURIComponent(inputValueArray.toString()), {
       secure: true, httpOnly: true, sameSite: true,
     });
   } else {
-    res.cookie(config.KEY_INPUT_VALUE_ARRAY, encodeURIComponent(makePieceMap(req)[1].toString()), {
+    res.cookie(config.KEY_INPUT_VALUE_ARRAY, encodeURIComponent(inputValueArray.toString()), {
       httpOnly: true, sameSite: true,
     });
   }

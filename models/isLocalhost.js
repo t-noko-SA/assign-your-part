@@ -1,9 +1,9 @@
+/* eslint-disable linebreak-style */
 'use strict';
 function isLocalhost(host = '') {
-  if (!host){
+  if (!host) {
     return true;
-  }else{
-  return false;
   }
+  return false;
 }
-module.exports=isLocalhost;
+module.exports = isLocalhost;
