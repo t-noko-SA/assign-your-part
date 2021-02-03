@@ -14,14 +14,14 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://code.jquery.com/jquery-3.5.1.slim.min.js", "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js", "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://code.jquery.com/jquery-3.5.1.slim.min.js', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js'],
       connectSrc: ["'self'"],
-      styleSrc: ["'self'", "fonts.googleapis.com", "'unsafe-inline'", "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"],
+      styleSrc: ["'self'", 'fonts.googleapis.com', "'unsafe-inline'", 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css'],
       fontSrc: ["'self'"],
       imgSrc: ["'self'"],
-      frameSrc: ["'self'"]      
-    }
-  }
+      frameSrc: ["'self'"],
+    },
+  },
 }));
 
 // view engine setup
@@ -37,12 +37,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', router);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
