@@ -10,9 +10,13 @@ function makePieceMap(req) {
   const inputValueArray = Object.keys(req.body).length ? Object.entries(req.body).toString().split(',') : decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(',');
   const pieceMap = new Map(); // => {ABC: playerCountMap, DEF: playerCountMap...}
 
-  // const pieceIdArray = inputValueArray.filter((value, idx, array) => idx % 3 === 0); // => [n0,n0,n1...] 表のpieceId の要素を昇順に格納
-  // const partArray = inputValueArray.filter((value, idx, array) => idx % 3 === 1); // => [1,2,1 ...] 表のpart の要素を昇順に格納　(曲ID n0 のパート1, 曲ID n0 のパート2, 曲ID n1 のパート1...)
-  const playerCountArray = inputValueArray.filter((value, idx, array) => idx % 3 === 2); // => [1,1,2...] 表のplayerCount の要素を昇順に格納　(曲ID n0 のパート1の人数, 曲ID n0 のパート2の人数, 曲ID n2 のパート1の人数)
+  // const pieceIdArray = inputValueArray.filter((value, idx, array) => idx % 3 === 0);
+  // => [n0,n0,n1...] pieceId の要素を昇順に格納
+
+  // const partArray = inputValueArray.filter((value, idx, array) => idx % 3 === 1);
+  // => [1,2,1 ...] part の要素を昇順に格納(曲ID n0 のパート1, 曲ID n0 のパート2, 曲ID n1 のパート1...)
+  const playerCountArray = inputValueArray.filter((value, idx, array) => idx % 3 === 2);
+  // => [1,1,2...] 表のplayerCount の要素を昇順に格納(曲ID n0 のパート1の人数, 曲ID n0 のパート2の人数, 曲ID n2 のパート1の人数)  
 
   pieceNameArray.forEach((pieceName, pieceNameIdx) => {
     function makePlayerCountMap(pieceNameIdx) {
@@ -36,9 +40,9 @@ function makePieceMap(req) {
     // console.log('pieceInfoMap', pieceInfoMap)
   });
 
-  pieceNameArray.forEach((pieceName) => {
-    console.log(pieceName, pieceMap.get(pieceName).get(config.KEY_PLAYER_COUNT));
-  });
+  // pieceNameArray.forEach((pieceName) => {
+  //   console.log(pieceName, pieceMap.get(pieceName).get(config.KEY_PLAYER_COUNT));
+  // });
 
   return pieceMap;
 }

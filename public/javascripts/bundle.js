@@ -92,11 +92,11 @@
 /* eslint-disable linebreak-style */
 
 
-var $ = __webpack_require__(1);
+const $ = __webpack_require__(1);
 
-var global = Function('return this;')();
+const global = Function('return this;')();
 
-var config = __webpack_require__(2);
+const config = __webpack_require__(2);
 
 global.jQuery = $;
 

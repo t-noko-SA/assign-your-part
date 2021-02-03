@@ -5,11 +5,9 @@ const config = require('../config.json');
 
 function sumPlayer(playerCountMap) {
   let playerSum = 0;
-  console.log('playerCountMap in sumPlayer', playerCountMap);
   playerCountMap.forEach((playerCount) => {
     playerSum += Number(playerCount);
   });
-  console.log('playerSum', playerSum);
   return playerSum;
 }
 exports.sumPlayer = sumPlayer;
@@ -132,10 +130,8 @@ function makeSortedPieceArray(pieceMap) {
   const sortedPieceArray = tempArray.sort((a, b) => {
     if (a.value < b.value) return 1;
     if (a.value > b.value) return -1;
-    if (a.value === b.value) return Math.floor(Math.random() * 3) - 1;// -> -1 or 0 or 1
+    if (a.value === b.value) return Math.floor(Math.random() * 3) - 1;// -> -1 || 0 || 1
   }).map((v) => v.key);
-  // console.log('tempArray', tempArray);
-  // console.log('sortedPieceArray', sortedPieceArray);
   return sortedPieceArray;
 }
 exports.makeSortedPieceArray = makeSortedPieceArray;
@@ -152,7 +148,7 @@ function convertReqCookieIntoArray(inputValues) {
 }
 exports.convertReqCookieIntoArray = convertReqCookieIntoArray;
 
-function formatReqCookie(reqCookie) { // cookie -> req.cookies['members']
+function formatReqCookie(reqCookie) {
   return decodeURIComponent(reqCookie).slice(0, config.PARAM_MAX_INPUT_SIZE);
 }
 exports.formatReqCookie = formatReqCookie;

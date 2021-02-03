@@ -1,4 +1,7 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable lines-around-directive */
+/* eslint-disable linebreak-style */
+// eslint-disable-next-line strict
 'use strict';
 const config = require('../config.json');
 const assigntmentFunc = require('./assigntmentFunc');

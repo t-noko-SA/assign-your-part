@@ -1,5 +1,5 @@
 'use strict';
-// TODO 変数名と値が全体で一致するようにする
+
 const express = require('express');
 const config = require('../config.json');
 const { convertReqCookieIntoArray, formatReqCookie } = require('../models/assigntmentFunc');
