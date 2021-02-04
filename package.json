@@ -44,8 +44,8 @@
   },
   "jest": {
     "modulePaths": ["<rootDir>/app/"],
-    "moduleFileExtensions": ["js", "jsx"],
-    "moduleDirectories": ["node_modules", "bower_components", "shared"],
+    "moduleFileExtensions": ["js"],
+    "moduleDirectories": ["node_modules"],
 
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",

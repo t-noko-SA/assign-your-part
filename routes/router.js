@@ -70,7 +70,7 @@ router.post('/form/2', (req, res, next) => {
   const resultPieceMap = makeResultPieceMap(
     req, convertReqCookieIntoArray(req.cookies[config.KEY_MEMBERS]),
   );
-  const inputValueArray = Object.keys(req.body).length ? Object.entries(req.body).toString().split(',') : decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(',');
+  const inputValueArray = Object.keys(req.body).length ? Array.from(Object.values(req.body)) : decodeURIComponent(req.cookies[config.KEY_INPUT_VALUE_ARRAY]).split(',');
 
   if (!isLocalhost(host)) {
     res.cookie(config.KEY_INPUT_VALUE_ARRAY, encodeURIComponent(inputValueArray.toString()), {

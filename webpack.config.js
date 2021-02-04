@@ -19,12 +19,7 @@ module.exports = {
     alias: {
       config$: './configs/app-config.js',
     },
-    extensions: ['.js', '.jsx'],
-    modules: [
-      'node_modules',
-      'bower_components',
-      'shared',
-      '/shared/vendor/modules',
-    ],
+    extensions: ['.js'],
+    modules: ['node_modules'],
   },
 };
