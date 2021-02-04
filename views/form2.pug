@@ -27,10 +27,13 @@ block content
                   while k <= memberCnt
                     if k == '1'
                       label.btn.btn-outline-secondary.active(for='n' + i +'_'+ j +'_' + k) #{k}人
-                        input.mx-1(type='radio', id = 'n' + i +'_'+ j +'_' + k, name = 'n' + i +','+ j, value= k, autocomplete="off", checked)
+                        //- input.mx-1(type='radio', id = 'n' + i +'_'+ j +'_' + k, name = 'n' + i +','+ j, value= k, autocomplete="off", checked)
+                        input.mx-1(type='radio', id = 'n' + i +'_'+ j +'_' + k, name = 'n' + i +'_'+ j, value= k, autocomplete="off", checked)
+
                     else
                       label.btn.btn-outline-secondary(for='n' + i +'_'+ j +'_' + k) #{k}人 
-                        input.mx-1(type='radio', id = 'n' + i +'_'+ j +'_' + k, name = 'n' + i +','+ j, value= k, autocomplete="off")                  
+                        //- input.mx-1(type='radio', id = 'n' + i +'_'+ j +'_' + k, name = 'n' + i +','+ j, value= k, autocomplete="off")                  
+                        input.mx-1(type='radio', id = 'n' + i +'_'+ j +'_' + k, name = 'n' + i +'_'+ j, value= k, autocomplete="off")                  
                     - k++
                 - j++
               br

@@ -107,7 +107,7 @@ function makeAssigntmentMap(playerArray, playerCountMap) {
   const assigntmentMap = new Map();
   let playerArrayIdx = 0;
 
-  playerCountMap.forEach((playerCount, part, array) => {
+  playerCountMap.forEach((playerCount, part) => {
     const partPlayerArray = [];
     for (let i = playerCount; i > 0; i -= 1) {
       // console.log('playerArray[playerArrayIdx]', playerArray[playerArrayIdx]);
@@ -131,6 +131,7 @@ function makeSortedPieceArray(pieceMap) {
     if (a.value < b.value) return 1;
     if (a.value > b.value) return -1;
     if (a.value === b.value) return Math.floor(Math.random() * 3) - 1;// -> -1 || 0 || 1
+    return 0;
   }).map((v) => v.key);
   return sortedPieceArray;
 }

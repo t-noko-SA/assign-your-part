@@ -9,7 +9,7 @@ function makeResultPieceMap(req) {
   const unassignedPieceMap = makeUnassignedPieceMap(req);
   const memberArray = assigntmentFunc.convertReqCookieIntoArray(req.cookies[config.KEY_MEMBERS]);
   const resultPieceMap = assignParts(unassignedPieceMap, memberArray);
-  console.log('resultPieceMap', resultPieceMap);
+  // console.log('resultPieceMap', resultPieceMap);
   return resultPieceMap;
 }
 

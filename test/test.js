@@ -2,6 +2,7 @@
 'use strict';
 
 const makeResultPieceMap = require('../models/makeResultPieceMap');
+
 const testReq1 = {
   body: {
     'n0,1': '1',
