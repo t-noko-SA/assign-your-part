@@ -32,6 +32,17 @@
 
 yarn install
 
+# Object
+```
+    resultPieceMap Map { //曲ごとの割振結果
+      'PieceNo1of2'// => Map {
+        'pieceName'// => 'PieceNo1of2',//曲名
+        'playerCount'// => Map { 1 => '1', 2 => '1', 3 => '1' },//パート => パート人数
+        'playerSum' => 3,// => プレイヤーの合計
+        'playerArray' => [ 'MemberNo2of3', 'MemberNo3of3', 'MemberNo1of3' ],// => プレイヤーの名前
+        'assigntmentMap' => Map { 1 => [Array], 2 => [Array], 3 => [Array] } },// => パート毎のプレイヤー [Array] => [ 'MemberNo2of3', 'MemberNo3of3']
+      'PieceNo2of2' => Map {//...
+```
 # Note
 
 この作品は、「N予備校WEBアプリコンテスト2020冬」応募作品です
