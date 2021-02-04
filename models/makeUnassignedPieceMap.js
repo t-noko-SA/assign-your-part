@@ -3,7 +3,7 @@
 const config = require('../config.json');
 const { convertReqCookieIntoArray, sumPlayer } = require('./assigntmentFunc');
 
-function makePieceMap(req) {
+function makeUnassignedPieceMap(req) {
   const memberSum = convertReqCookieIntoArray(req.cookies[config.KEY_MEMBERS]).length;
   // => 例[ABC, DEF, GHI...] 曲ID(n0, n1, n2...) に1対1で対応
   const pieceNameArray = convertReqCookieIntoArray(req.cookies[config.KEY_PIECES]);
@@ -47,4 +47,4 @@ function makePieceMap(req) {
   return pieceMap;
 }
 
-module.exports = makePieceMap;
+module.exports = makeUnassignedPieceMap;
