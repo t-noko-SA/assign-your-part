@@ -15,7 +15,7 @@
 
 # DEMO
 
-[](https://protected-brushlands-21043.herokuapp.com/img/intro_v0-01.gif)
+![](https://raw.githubusercontent.com/t-noko-SA/assign-your-part/master/public/img/intro_v0-01.gif)
 
 # Features
 
