@@ -29,7 +29,6 @@ function chooseExtraPlayer(memberArray, memberSum, playerTotal) {
   const extraPlayerArray = [];
   const extraPlayerSum = playerTotal % memberSum;
   const coppiedMemberArray = Array.from(memberArray);
-
   if (extraPlayerSum === 0) {
     return extraPlayerArray;
   }
@@ -44,6 +43,7 @@ function chooseExtraPlayer(memberArray, memberSum, playerTotal) {
   // console.log('extraPlayerArray', extraPlayerArray);
   return extraPlayerArray;
 }
+exports.chooseExtraPlayer = chooseExtraPlayer;
 
 function makeMemberInfoMap(memberName, memberSum, playerTotal, extraPlayerArray) {
   const memberInfoMap = new Map();

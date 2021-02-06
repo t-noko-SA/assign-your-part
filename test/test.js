@@ -1,7 +1,10 @@
 /* eslint-disable linebreak-style */
-'use strict';
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
+/* eslint-disable linebreak-style */
 
 const makeResultPieceMap = require('../models/makeResultPieceMap');
+const assigntmentFunc = require('../models/assigntmentFunc');
 
 const testReq1 = {
   body: {
@@ -17,27 +20,35 @@ const testReq1 = {
     members: 'MemberNo1of3\nMemberNo2of3\nMemberNo3of3',
   },
 };
+
 const testPieceArray = ['PieceNo1of2', 'PieceNo2of2'];
 const testMemberArray = ['MemberNo1of3', 'MemberNo2of3', 'MemberNo3of3'];
 
-describe('#makeResultPieceMap()', () => {
+describe('#makeResultPieceMap', () => {
   test('AllInputMemberAndPiecesAreOutput', () => {
     const resultPieceMap = makeResultPieceMap(testReq1);
     const resultPieceArray = [];
     let resultPlayerArray = [];
     resultPieceMap.forEach(((piece) => {
       resultPieceArray.push(piece.get('pieceName'));
-      console.log(piece);
       piece.get('assigntmentMap').forEach(((part) => {
-        console.log('part', part);
         resultPlayerArray = resultPlayerArray.concat(part.slice());
       }));
-      console.log('resultPlayerArray', resultPlayerArray);
       expect(resultPlayerArray.sort().toString()).toBe(testMemberArray.sort().toString());
-      console.log(resultPlayerArray, testMemberArray);
       resultPlayerArray.length = 0;
     }));
-    console.log(resultPieceArray, testPieceArray);
     expect(resultPieceArray.sort().toString()).toBe(testPieceArray.sort().toString());
+  });
+});
+
+describe('#assigntmentFunc', () => {
+  const testMemberArrayCopied = Array.from(testMemberArray);
+  test('ExtraPlayersAreChoosed', () => {
+    const extraPlayerArray = assigntmentFunc
+      .chooseExtraPlayer(testMemberArrayCopied, testMemberArrayCopied.length, 2);
+    extraPlayerArray.forEach((player) => {
+      expect(testMemberArrayCopied.includes(player)).toBe(true);
+      testMemberArrayCopied.splice(testMemberArrayCopied.find(v => v = player), 1);
+    });
   });
 });

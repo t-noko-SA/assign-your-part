@@ -1,12 +1,14 @@
 {
-  "name": "assign-y-parts",
+  "name": "assign-your-parts",
   "version": "0.0.0",
   "private": true,
+  "homepage": "https://github.com/t-noko-SA/assign-your-part/blob/master/README.md",
   "scripts": {
     "start": "node ./bin/www",
     "lint": "eslint src",
     "test": "npx jest --runInBand"
   },
+  "license": "GPL-3.0-only",
   "dependencies": {
     "@babel/core": "7.1.6",
     "babel": "^6.23.0",
@@ -15,8 +17,6 @@
     "core-js": "3",
     "css-loader": "^5.0.1",
     "debug": "~2.6.9",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1",
     "express": "~4.16.1",
     "helmet": "^4.2.0",
     "http-errors": "~1.6.3",
@@ -34,6 +34,7 @@
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "eslint": "7.14",
+    "eslint-config-airbnb-base": "^14.2.1",
     "hard-source-webpack-plugin": "^0.13.1",
     "jest": "^26.6.3",
     "webpack": "4.27.0",
@@ -43,15 +44,19 @@
     "node": "~10"
   },
   "jest": {
-    "modulePaths": ["<rootDir>/app/"],
-    "moduleFileExtensions": ["js"],
-    "moduleDirectories": ["node_modules"],
-
+    "modulePaths": [
+      "<rootDir>/app/"
+    ],
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
       "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js",
       "^config$": "<rootDir>/configs/app-config.js"
     }
-  },
-  "license": "GPL-3.0-only"  
+  }
 }
