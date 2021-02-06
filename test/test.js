@@ -48,10 +48,10 @@ describe('#assigntmentFunc', () => {
     const extraPlayerArray = assigntmentFunc
       .chooseExtraPlayer(testMemberArrayCopied, testMemberArrayCopied.length,
         testMemberArrayCopied.length - 1);
-    extraPlayerArray.forEach((player) => {
-      // expect(testMemberArrayCopied.includes(player)).toBe(true);
-      expect(testMemberArrayCopied).toContain(player);
-      testMemberArrayCopied.splice(testMemberArrayCopied.find(v => v = player), 1);
-    });
+    console.log('extraPlayerArray', extraPlayerArray);
+    expect(testMemberArrayCopied).toContain(extraPlayerArray[0]);
+    testMemberArrayCopied.splice(testMemberArrayCopied.indexOf(extraPlayerArray[0]));
+    console.log('testMemberArrayCopied', testMemberArrayCopied);
+    expect(testMemberArrayCopied).toContain(extraPlayerArray[1]);
   });
 });
