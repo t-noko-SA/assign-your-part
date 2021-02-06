@@ -1,7 +1,8 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
-/* eslint-disable linebreak-style */
+
+'use strict';
 
 const makeResultPieceMap = require('../models/makeResultPieceMap');
 const assigntmentFunc = require('../models/assigntmentFunc');
@@ -45,9 +46,11 @@ describe('#assigntmentFunc', () => {
   const testMemberArrayCopied = Array.from(testMemberArray);
   test('ExtraPlayersAreChoosed', () => {
     const extraPlayerArray = assigntmentFunc
-      .chooseExtraPlayer(testMemberArrayCopied, testMemberArrayCopied.length, 2);
+      .chooseExtraPlayer(testMemberArrayCopied, testMemberArrayCopied.length,
+        testMemberArrayCopied.length - 1);
     extraPlayerArray.forEach((player) => {
-      expect(testMemberArrayCopied.includes(player)).toBe(true);
+      // expect(testMemberArrayCopied.includes(player)).toBe(true);
+      expect(testMemberArrayCopied).toContain(player);
       testMemberArrayCopied.splice(testMemberArrayCopied.find(v => v = player), 1);
     });
   });
