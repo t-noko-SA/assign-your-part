@@ -8,7 +8,7 @@
     "lint": "eslint src",
     "test": "npx jest --runInBand"
   },
-  "license": "GPL-3.0-only",
+  "license": "242",
   "dependencies": {
     "@babel/core": "7.1.6",
     "babel": "^6.23.0",
@@ -35,8 +35,10 @@
     "babel-loader": "^8.2.2",
     "eslint": "7.14",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
     "hard-source-webpack-plugin": "^0.13.1",
     "jest": "^26.6.3",
+    "jest-junit": "^12.0.0",
     "webpack": "4.27.0",
     "webpack-cli": "3.1.2"
   },
