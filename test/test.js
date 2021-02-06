@@ -50,7 +50,7 @@ describe('#assigntmentFunc', () => {
         testMemberArrayCopied.length - 1);
     console.log('extraPlayerArray', extraPlayerArray);
     expect(testMemberArrayCopied).toContain(extraPlayerArray[0]);
-    testMemberArrayCopied.splice(testMemberArrayCopied.indexOf(extraPlayerArray[0]));
+    testMemberArrayCopied.splice(testMemberArrayCopied.indexOf(extraPlayerArray[0]), 1);
     console.log('testMemberArrayCopied', testMemberArrayCopied);
     expect(testMemberArrayCopied).toContain(extraPlayerArray[1]);
   });
