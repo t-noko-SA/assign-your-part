@@ -43,7 +43,7 @@
     "webpack-cli": "3.1.2"
   },
   "engines": {
-    "node": "~10"
+    "node": "~10.14.2"
   },
   "jest": {
     "modulePaths": [
