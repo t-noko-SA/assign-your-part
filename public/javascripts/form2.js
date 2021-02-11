@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-'use strict';
+/* eslint-disable no-undef */
 
 function displayCounterOnLoad() {
   const limit = $('.piece').eq(0).children('.part').length;
