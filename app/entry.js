@@ -1,8 +1,8 @@
 /* eslint-disable linebreak-style */
-'use strict';
+/* eslint-disable no-new-func */
+
 const $ = require('jquery');
 
 const global = Function('return this;')();
-const config = require('../config.json');
 
 global.jQuery = $;
