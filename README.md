@@ -32,6 +32,22 @@
 
 yarn install
 
+# 用語集
+|             |                                                                                                                                                                                                                          |     | 
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- | 
+| 用語        | 説明                                                                                                                                                                                                                     |     | 
+| piece       | 曲                                                                                                                                                                                                                       |     | 
+| player      | pieceに割り当てられた人。演奏者。                                                                                                                                                                                        |     | 
+| member      | STEP1で入力された全ての人。playerも非playerも含む                                                                                                                                                                        |     | 
+| part        | 演奏する楽譜(パート譜)の割り当て。1st, 2nd, 3rd, 4th...と続く。<br>[パート分けされた楽譜の例](https://commons.wikimedia.org/wiki/File:Mendelssohn_Opus_13_Intermezzo.jpg#/media/File:Mendelssohn_Opus_13_Intermezzo.jpg) |     | 
+| playerCount | 各partに割り当てるplayerの数。STEP3で選択する                                                                                                                                                                            |     | 
+| playerSum   | pieceに対するplayerの合計                                                                                                                                                                                                |     | 
+| playerTotal | 全てのpieceのplayerの延べ人数                                                                                                                                                                                            |     | 
+| assign      | memberをpartに割り当てること                                                                                                                                                                                             |     | 
+| extraPlayer | 各memberに割り当てられる曲の数が同一にならない場合、より多く曲を演奏するplayer                                                                                                                                           |     | 
+| 乗り番      | pieceに対してそのmemberが割り当てられていること。その曲は演奏する。                                                                                                                                                      |     | 
+| 降り番      | pieceに対してそのmemberが割り当てられないこと。その曲は演奏しない。                                                                                                                                                    |     | 
+
 # Object
 ```
     resultPieceMap Map { //曲ごとの割振結果
