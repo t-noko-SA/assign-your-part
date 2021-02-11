@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-'use strict;'
+
 const makeUnassignedPieceMap = require('./makeUnassignedPieceMap');
 const assigntmentFunc = require('./assigntmentFunc');
 const assignParts = require('./assignParts');

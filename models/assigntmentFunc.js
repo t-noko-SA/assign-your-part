@@ -1,5 +1,4 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable max-len */
 
 const config = require('../config.json');
 
@@ -47,7 +46,8 @@ exports.chooseExtraPlayer = chooseExtraPlayer;
 
 function makeMemberInfoMap(memberName, memberSum, playerTotal, extraPlayerArray) {
   const memberInfoMap = new Map();
-  const playingPieceSum = extraPlayerArray.includes(memberName) ? Math.floor(playerTotal / memberSum) + 1 : Math.floor(playerTotal / memberSum);
+  const playingPieceSum = extraPlayerArray.includes(memberName)
+    ? Math.floor(playerTotal / memberSum) + 1 : Math.floor(playerTotal / memberSum);
   memberInfoMap.set(config.KEY_PLAYER_NAME, memberName);
   memberInfoMap.set(config.KEY_PLYAING_PIECE_SUM, playingPieceSum);
 
@@ -71,7 +71,8 @@ exports.makeMemberMap = makeMemberMap;
 function makeUnAssignedMemberMap(memberArray, memberMap) {
   const unAssignedMemberMap = new Map();
   memberArray.forEach((memberName) => {
-    unAssignedMemberMap.set(memberName, memberMap.get(memberName).get(config.KEY_PLYAING_PIECE_SUM));
+    unAssignedMemberMap.set(memberName, memberMap.get(memberName)
+      .get(config.KEY_PLYAING_PIECE_SUM));
   });
   return unAssignedMemberMap;
 }
@@ -98,7 +99,6 @@ function makePlayerArray(piece, memberMap, unAssignedMemberMap) {
     i -= 1;
   }
 
-  // console.log('pieceName', piece.get(config.KEY_PIECE_NAME),'playerArray', playerArray, 'unAssignedMemberArray', unAssignedMemberArray)// playerArray.push()
   return playerArray;
 }
 exports.makePlayerArray = makePlayerArray;

@@ -1,7 +1,5 @@
 /* eslint-disable linebreak-style */
 
-'use strict';
-
 const config = require('../config.json');
 const { convertReqCookieIntoArray, sumPlayer } = require('./assigntmentFunc');
 
